@@ -20,8 +20,9 @@ class CarsSpider(scrapy.Spider):
         next_page = response.xpath('//div[contains(@class, "module_pagination")]//a[@rel = "next"]/@href')
         
         if next_page:
+            self.log("Próxima Página: {} ".format(next_page.extract_first()))
             yield scrapy.Request (
-                (url= next_page.extract_first(), callback = self.parse)
+                url= next_page.extract_first(), callback = self.parse
             )
 
     def parse_detail(self, response):
